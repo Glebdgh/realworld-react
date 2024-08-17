@@ -16,13 +16,13 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Cache Docker layers
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
+#    - name: Cache Docker layers
+#      uses: actions/cache@v2
+#      with:
+#        path: /tmp/.buildx-cache
+#        key: ${{ runner.os }}-buildx-${{ github.sha }}
+#        restore-keys: |
+#          ${{ runner.os }}-buildx-
 
     - name: Build Docker image
       run: |
@@ -60,8 +60,8 @@ jobs:
         export KUBECONFIG=~/.kube/config
         sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
         sed -i "s/repository/${{ secrets.DOCKER_USERNAME }}/g" k8s/deployment.yaml
-        telnet 192.168.0.101 8443 
-
+        ip a
+        
 #    - name: Apply Kubernetes manifests
 #      run: |
 #        kubectl apply -f k8s/
