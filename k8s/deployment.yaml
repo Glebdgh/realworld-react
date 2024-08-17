@@ -16,6 +16,7 @@ spec:
     spec:
       containers:
         - name: node-app
+#          image: gle88ka/realworld-react-web:latest
           image: repository/realworld-react-web:ENV_TAG
           ports:
             - containerPort: 4100
