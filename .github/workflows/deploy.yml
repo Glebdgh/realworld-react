@@ -56,6 +56,8 @@ jobs:
     - name: Set up Kubeconfig and deploy files
       run: |
         mkdir -p ~/.kube
+        mkdir -p ~/.minikube  
+        cp -r .minikube/ ~/.minikube
         echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
         export KUBECONFIG=~/.kube/config
         sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
