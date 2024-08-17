@@ -62,6 +62,10 @@ jobs:
     - name: Check for proper configured app kubernetes
       run: cat k8s/deployment.yaml
 
-#    - name: Apply Kubernetes manifests
-#      run: |
-#        kubectl apply -f k8s/
+    - name: Apply Kubernetes manifests
+      run: |
+        kubectl apply -f k8s/
+
+    - name: Check for applied manifests
+      run: |
+        kubectl get pods --all-namespaces
