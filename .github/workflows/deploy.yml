@@ -55,20 +55,15 @@ jobs:
 
     - name: Set up Kubeconfig and deploy files
       run: |
-        export KUBECONFIG=${{ secrets.KUBE_CONFIG }}
+        echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > ~/.kube/config
+        export KUBECONFIG=~/.kube/config
         sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
         sed -i "s/repository/${{ secrets.DOCKER_USERNAME }}/g" k8s/deployment.yaml
     
-    - name: Check for proper configured app kubernetes
-      run: cat k8s/deployment.yaml
+    - name: Apply Kubernetes manifests
+      run: |
+        kubectl apply -f k8s/
 
-    - name: Check path
-      run: pwd
-
-#    - name: Apply Kubernetes manifests
-#      run: |
-#        kubectl apply -f k8s/
-
-#    - name: Check for applied manifests
-#      run: |
-#        kubectl get pods --all-namespaces
+    - name: Check for applied manifests
+      run: |
+        kubectl get pods --all-namespaces
