@@ -51,7 +51,7 @@ jobs:
 
     - name: Set up deploy files
       run: |
-        export KUBECONFIG=/Users/config2
+        export KUBECONFIG=${{ secrets.KUBE_CONFIG }}
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
         kubectl apply -f k8s/
