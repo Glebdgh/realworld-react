@@ -61,11 +61,12 @@ jobs:
         export KUBECONFIG=/Users/config2
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
+        kubectl config view
 
 #    - name: Apply Kubernetes manifests
 #      run: |
 #        kubectl apply -f k8s/
 
-    - name: Check for applied manifests
-      run: |
-        kubectl get pods --all-namespaces
+#    - name: Check for applied manifests
+#      run: |
+#        kubectl get pods --all-namespaces
