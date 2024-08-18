@@ -49,12 +49,15 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Kubeconfig and deploy files
+    - name: Set KUBECONFIG
+      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
+    - name: Set up deploy files
       run: |
-        export KUBECONFIG=/Users/gle88ka/.kube/config2
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
-        printenv
 
 #    - name: Apply Kubernetes manifests
 #      run: |
