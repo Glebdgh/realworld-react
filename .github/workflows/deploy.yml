@@ -52,12 +52,9 @@ jobs:
     - name: Set up Kubeconfig and deploy files
       run: |
         export KUBECONFIG=/Users/gle88ka/.kube/config2
-        cat /Users/gle88ka/.kube/config2
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
-        ls -la
-        pwd
-        ifconfig
+        printenv
 
 #    - name: Apply Kubernetes manifests
 #      run: |
