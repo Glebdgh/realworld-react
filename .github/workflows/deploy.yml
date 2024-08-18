@@ -49,18 +49,11 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-#    - name: Install kubectl
-#      run: |
-#        curl -LO "https://dl.k8s.io/release/v1.21.0/bin/linux/amd64/kubectl"
-#        chmod +x ./kubectl
-#        sudo mv ./kubectl /usr/local/bin/kubectl
-
     - name: Set up Kubeconfig and deploy files
       run: |
         mkdir -p ~/.kube
         echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
         export KUBECONFIG=~/.kube/config
-#        sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
         
