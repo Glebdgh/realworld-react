@@ -51,9 +51,7 @@ jobs:
 
     - name: Set up Kubeconfig and deploy files
       run: |
-        mkdir -p ~/.kube
-        echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
-        export KUBECONFIG=~/.kube/config
+        export KUBECONFIG=/Users/gle88ka/.kube/config2
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
         ls -la
@@ -64,6 +62,6 @@ jobs:
 #      run: |
 #        kubectl apply -f k8s/
 
-#    - name: Check for applied manifests
-#      run: |
-#        kubectl get pods --all-namespaces
+    - name: Check for applied manifests
+      run: |
+        kubectl get pods --all-namespaces
