@@ -60,8 +60,9 @@ jobs:
         mkdir -p ~/.kube
         echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
         export KUBECONFIG=~/.kube/config
-        sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
-        sed -i "s/repository/${{ secrets.DOCKER_USERNAME }}/g" k8s/deployment.yaml
+#        sed -i "s/ENV_TAG/${{ github.sha }}/g" k8s/deployment.yaml
+        sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
+        sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
         
 #    - name: Apply Kubernetes manifests
 #      run: |
