@@ -49,25 +49,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-#    - name: Set KUBECONFIG
-#      run: echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-#      env:
-#        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
     - name: Set up deploy files
       run: |
-        curl -k https://127.0.0.1:6443/version
-        whoami
         export KUBECONFIG=/Users/config2
         sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
         sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
-        kubectl config view
-        kubectl get po -A
-
-#    - name: Apply Kubernetes manifests
-#      run: |
-#        kubectl apply -f k8s/
-
-#    - name: Check for applied manifests
-#      run: |
-#        kubectl get pods --all-namespaces
+        kubectl apply -f k8s/
+        kubectl get pods --all-namespaces
