@@ -52,7 +52,7 @@ jobs:
     - name: Set up deploy files
       run: |
         export KUBECONFIG=${{ secrets.KUBE_CONFIG }}
-        sed -i '' 's/ENV_TAG/${{ github.sha }}/g' k8s/deployment.yaml
-        sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' k8s/deployment.yaml
-        kubectl apply -f k8s/
+        sed -i '' 's/ENV_TAG/${{ github.sha }}/g' helm-chart/front-main/values.yaml
+        sed -i '' 's/repository/${{ secrets.DOCKER_USERNAME }}/g' helm-chart/front-main/values.yaml
+        helm upgrade --install front-main ./helm-chart/front-main
         kubectl get pods --all-namespaces

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: front-main-app
+description: A Helm chart for front main Kubernetes
+type: application
+
+version: 2.0.0
+
