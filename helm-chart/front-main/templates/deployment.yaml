@@ -21,3 +21,7 @@ spec:
           image: {{ .Values.image }}
           ports:
             - containerPort: 4100
+          env:
+          - name: REACT_APP_BACKEND_URL
+            value: "http://java-app-service.default.svc.cluster.local:8080"
+
